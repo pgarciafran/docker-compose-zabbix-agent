@@ -1,0 +1,22 @@
+version: '3'
+services:
+  zabbix-agent:
+    container_name: zabbix-agent
+    image: monitoringartist/zabbix-agent-xxl-limited:latest
+    #networks:
+    #     host:
+    privileged: true
+    restart: always
+    volumes:
+        - /:/rootfs
+        - /etc/localtime:/etc/localtime:ro
+        - /var/run:/var/run
+    environment:
+        - ZA_Server=192.168.1.145
+        - ZBX_HOSTNAME="zabbix"
+        - ZBX_SERVER_HOST=192.168.1.145
+    links:
+        - zabbix-server
+    deploy:
+        mode: global
+
